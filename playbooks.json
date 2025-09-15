@@ -1,1 +1,103 @@
-[]
+[
+  {
+    "keyword": "powershell",
+    "technique_id": "T1059.001",
+    "logs": ["Sysmon Event ID 1", "Windows Security Log 4688"],
+    "steps": [
+      "Check parent process of PowerShell execution",
+      "Look for obfuscation (Base64, -EncodedCommand, IEX)",
+      "Correlate with user account activity"
+    ]
+  },
+  {
+    "keyword": "failed login",
+    "technique_id": "T1110",
+    "logs": ["Windows Security Log 4625", "Linux auth.log"],
+    "steps": [
+      "Identify repeated failed logins from the same source IP",
+      "Check if login attempts succeeded later",
+      "Correlate with geographic location or impossible travel"
+    ]
+  },
+  {
+    "keyword": "mimikatz",
+    "technique_id": "T1003.001",
+    "logs": ["Sysmon Event ID 10 (ProcessAccess)", "Security Log 4673/4674"],
+    "steps": [
+      "Check for LSASS process access",
+      "Verify if non-system processes are dumping credentials",
+      "Correlate with privilege escalation attempts"
+    ]
+  },
+  {
+    "keyword": "rundll32",
+    "technique_id": "T1218.011",
+    "logs": ["Sysmon Event ID 1", "Windows Security Log 4688"],
+    "steps": [
+      "Review DLL paths loaded by rundll32.exe",
+      "Check command-line arguments for suspicious exports",
+      "Trace execution back to parent process"
+    ]
+  },
+  {
+    "keyword": "suspicious service",
+    "technique_id": "T1543.003",
+    "logs": ["Windows System Log 7045", "Sysmon Event ID 1"],
+    "steps": [
+      "Identify newly installed or modified services",
+      "Validate the binary path and signatures",
+      "Check persistence attempts"
+    ]
+  },
+  {
+    "keyword": "encoded command",
+    "technique_id": "T1027",
+    "logs": ["PowerShell ScriptBlockLogging 4104", "Sysmon Event ID 1"],
+    "steps": [
+      "Look for '-EncodedCommand' arguments",
+      "Decode Base64 strings for review",
+      "Correlate with outbound network activity"
+    ]
+  },
+  {
+    "keyword": "suspicious outbound connection",
+    "technique_id": "T1071",
+    "logs": ["Sysmon Event ID 3", "Firewall logs"],
+    "steps": [
+      "Check destination IP reputation",
+      "Look for periodic beaconing patterns",
+      "Identify the process initiating the connection"
+    ]
+  },
+  {
+    "keyword": "scheduled task",
+    "technique_id": "T1053.005",
+    "logs": ["Windows Security Log 4698", "Sysmon Event ID 1"],
+    "steps": [
+      "Check new scheduled task creation events",
+      "Verify task name and binary paths",
+      "Identify persistence or lateral movement indicators"
+    ]
+  },
+  {
+    "keyword": "office macro",
+    "technique_id": "T1566.001",
+    "logs": ["Office application logs", "Sysmon Event ID 1"],
+    "steps": [
+      "Check if macros were enabled by the user",
+      "Identify spawned processes (e.g., powershell.exe, cmd.exe)",
+      "Correlate with recent phishing email delivery"
+    ]
+  },
+  {
+    "keyword": "remote desktop",
+    "technique_id": "T1021.001",
+    "logs": ["Windows Security Log 4624 (logons)", "Sysmon Event ID 3 (RDP connections)"],
+    "steps": [
+      "Check for unusual RDP sessions from external IPs",
+      "Validate if account usage is legitimate",
+      "Correlate with failed login attempts or credential dumps"
+    ]
+  }
+]
+
